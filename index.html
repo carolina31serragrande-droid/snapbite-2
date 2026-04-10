@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapBite — Lanchonete do SENAI</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <script src="js/skeleton.js"></script>
+ 
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag"><span class="dot"></span> Aberto agora · SENAI</div>
+          <h1>O lanche que<br>você <span class="hl">merece</span><br>no intervalo.</h1>
+          <p class="hero-desc">Monte seu pedido antes da aula acabar e a gente deixa tudo prontinho pra você retirar sem fila. Simples assim.</p>
+          <div class="hero-ctas">
+            <a href="cardapio.html"><button class="btn-primary">Ver Cardápio →</button></a>
+            <a href="promocoes.html"><button class="btn-ghost">Promoções do dia</button></a>
+          </div>
+          <div class="hero-nums">
+            <div class="hero-num-item">
+              <div class="n-val">200+</div>
+              <div class="n-lab">pedidos/dia</div>
+            </div>
+            <div class="hero-num-item">
+              <div class="n-val">4.9</div>
+              <div class="n-lab">avaliação</div>
+            </div>
+            <div class="hero-num-item">
+              <div class="n-val">15min</div>
+              <div class="n-lab">preparo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-product">
+          <div class="prod-card-hero">
+            <span class="badge-topo">Mais pedido</span>
+            <span class="emoji-grande"><img src="img/img1.png"></span>
+            <div class="prod-card-nome">SnapBurguer Clássico</div>
+            <div class="prod-card-desc">Blend artesanal, cheddar, alface, tomate e molho especial.</div>
+            <div class="prod-card-row">
+              <div class="prod-preco">R$ 12,90</div>
+              <button class="prod-add-btn" onclick="adicionarAoCarrinho({id:'snb1',nome:'SnapBurguer Clássico',preco:12.90,emoji:'🍔',desc:'Blend artesanal clássico'})">+ Pedir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRIP CATEGORIAS -->
+    <div class="strip-cats">
+      <div class="strip-cats-inner">
+        <a href="cardapio.html" class="cat-item">
+          <span class="cat-emoji">🍔</span>
+          <div class="cat-info"><div class="cat-nome">Lanches</div><div class="cat-qtd">12 opções</div></div>
+        </a>
+        <a href="cardapio.html" class="cat-item">
+          <span class="cat-emoji">🍟</span>
+          <div class="cat-info"><div class="cat-nome">Combos</div><div class="cat-qtd">6 combos</div></div>
+        </a>
+        <a href="cardapio.html" class="cat-item">
+          <span class="cat-emoji">🥤</span>
+          <div class="cat-info"><div class="cat-nome">Bebidas</div><div class="cat-qtd">8 opções</div></div>
+        </a>
+        <a href="cardapio.html" class="cat-item">
+          <span class="cat-emoji">🍰</span>
+          <div class="cat-info"><div class="cat-nome">Sobremesas</div><div class="cat-qtd">5 opções</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- DESTAQUE DO DIA -->
+    <section class="sec-destaque">
+      <div class="destaque-inner">
+        <div class="destaque-texto">
+          <span class="eyebrow" style="color:var(--terracota)">Oferta do dia</span>
+          <h2>Combo Estudante por menos do que você pensa.</h2>
+          <p>Burguer artesanal + batata crocante + refri gelado. A combinação perfeita pra você se concentrar no que importa — a aula.</p>
+          <div class="preco-bloco">
+            <span class="preco-antes">R$ 24,90</span>
+            <span class="preco-agora">R$ 18,50</span>
+          </div>
+          <button class="btn-secondary" onclick="adicionarAoCarrinho({id:'combo1',nome:'Combo Estudante',preco:18.50,emoji:'🍔',desc:'Burguer + Batata + Refri'})">Quero esse combo</button>
+        </div>
+        <div class="destaque-card">
+          <span class="rotulo">🔥 Hoje com 26% off</span>
+          <div class="emoji-destaque"><img src="img/img2.png"></div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--preto-q)">Combo Estudante</div>
+          <div style="color:var(--cinza-q);font-size:0.83rem;margin-top:6px">Burguer + Batata M + Refri 300ml</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section class="sec-depo">
+      <div class="sec-depo-inner">
+        <div class="depo-header">
+          <div>
+            <span class="eyebrow">O que a galera fala</span>
+            <h2 class="section-title" style="margin-top:6px">+200 estudantes já pediram</h2>
+          </div>
+          <a href="cardapio.html"><button class="btn-ghost">Ver cardápio</button></a>
+        </div>
+        <div class="depo-grid">
+          <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-texto">"Melhor lanche do SENAI. O burguer é gigante e o atendimento é super rápido. Não fico mais sem pedir!"</p>
+            <div class="depo-autor">
+              <div class="depo-av">🧑‍💻</div>
+              <div><div class="depo-nome">Gabriel S.</div><div class="depo-cargo">Estudante de TI</div></div>
+            </div>
+          </div>
+          <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-texto">"O combo estudante é incrível. Pago pouco e saio satisfeita. Recomendo pra todo mundo aqui do SENAI."</p>
+            <div class="depo-autor">
+              <div class="depo-av">👩‍🎨</div>
+              <div><div class="depo-nome">Ana L.</div><div class="depo-cargo">Estudante de Design</div></div>
+            </div>
+          </div>
+          <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-texto">"O sistema online é o diferencial. Peço antes do intervalo e quando chego já tá na minha mão. Top!"</p>
+            <div class="depo-autor">
+              <div class="depo-av">👨‍🔧</div>
+              <div><div class="depo-nome">Pedro M.</div><div class="depo-cargo">Estudante de Elétrica</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sec-cta">
+      <div class="sec-cta-inner">
+        <h2>Teste nossa IA 🍟</h2>
+        <p>Descubra o lanche perfeito com apenas um clique.</p>
+        <a href="IA.html"><button class="btn-primary" style="margin:0 auto;display:inline-flex;padding:15px 36px;font-size:1rem">Testar agora</button></a>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script type="module" src="backend/firebase-auth.js"></script>
+
+</body>
+</html>

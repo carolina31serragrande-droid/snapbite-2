@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapBite — Bem-vindo à Lanchonete do SENAI</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    /* ── WELCOME PAGE EXTRA STYLES ── */
+
+    /* Hero adaptado para boas-vindas */
+    .welcome-hero {
+      background: var(--preto-mid);
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-hero::before {
+      content: '';
+      position: absolute;
+      right: -8%;
+      top: 0; bottom: 0;
+      width: 52%;
+      background: var(--vinho);
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+      opacity: 0.4;
+    }
+
+    /* partículas decorativas de fundo */
+    .welcome-hero::after {
+      content: '🍔 🍟 🥤 🍩 🌮';
+      position: absolute;
+      font-size: 5rem;
+      right: 6%;
+      bottom: 8%;
+      opacity: 0.04;
+      pointer-events: none;
+      letter-spacing: 18px;
+    }
+
+    .welcome-hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 80px var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .welcome-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(200,149,42,0.4);
+      border-radius: 4px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--mostarda);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      background: rgba(200,149,42,0.07);
+    }
+    .welcome-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--oliva-cl);
+      animation: blink 1.8s infinite;
+    }
+
+    .welcome-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--off-white);
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .welcome-hero h1 .hl {
+      color: var(--mostarda);
+      font-style: italic;
+    }
+
+    .welcome-desc {
+      color: #9A8E80;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+
+    /* CTAs */
+    .welcome-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn-cadastrar {
+      background: var(--mostarda);
+      color: var(--preto-mid);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 14px 30px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      transition: background var(--t), transform var(--t), box-shadow var(--t);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .btn-cadastrar:hover {
+      background: var(--mostarda-cl);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,149,42,0.38);
+    }
+
+    .btn-entrar-hero {
+      background: transparent;
+      color: var(--off-white);
+      border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: var(--radius-sm);
+      padding: 13px 26px;
+      font-weight: 600;
+      font-size: 0.93rem;
+      cursor: pointer;
+      transition: background var(--t), border-color var(--t), color var(--t);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-entrar-hero:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    /* Mini trust badges */
+    .trust-row {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #6A5E52;
+      font-weight: 600;
+    }
+    .trust-item span:first-child { font-size: 1rem; }
+
+    /* Card de preview à direita */
+    .welcome-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .preview-card-main {
+      background: var(--creme);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      box-shadow: var(--sombra-g), 0 0 0 1px rgba(255,255,255,0.04);
+      position: relative;
+      animation: floatY 4s ease-in-out infinite;
+    }
+
+    .preview-card-main .card-tag {
+      position: absolute;
+      top: -12px; right: 22px;
+      background: var(--mostarda);
+      color: var(--preto-mid);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 5px 14px;
+      border-radius: 4px;
+    }
+
+    .preview-emoji {
+      font-size: 5rem;
+      text-align: center;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .preview-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--preto-q);
+      margin-bottom: 4px;
+    }
+
+    .preview-desc {
+      font-size: 0.82rem;
+      color: var(--cinza-q);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .preview-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-preco {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--vinho);
+    }
+
+    .preview-lock {
+      background: rgba(125,29,63,0.12);
+      border: 1.5px solid rgba(125,29,63,0.22);
+      color: var(--vinho);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--t), transform var(--t);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .preview-lock:hover {
+      background: var(--vinho);
+      color: #fff;
+      transform: scale(1.04);
+    }
+
+    /* Mini card flutuante */
+    .preview-mini {
+      background: #fff;
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--sombra-m);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      position: absolute;
+      bottom: -18px;
+      left: -22px;
+      animation: floatY 3.4s ease-in-out infinite reverse;
+    }
+    .preview-mini .ic { font-size: 1.4rem; }
+    .preview-mini strong { color: var(--preto-q); font-weight: 700; display: block; font-size: 0.83rem; }
+    .preview-mini span { color: var(--cinza-q); font-size: 0.75rem; }
+
+    /* ── POR QUE SE CADASTRAR ── */
+    .sec-why {
+      background: var(--off-white);
+      padding: 88px 0;
+      border-top: 2px solid var(--creme-esc);
+    }
+
+    .sec-why-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .why-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .why-card {
+      background: #fff;
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--mostarda);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--sombra-m);
+      border-color: var(--mostarda);
+    }
+    .why-card:hover::before { transform: scaleX(1); }
+
+    .why-icon {
+      width: 52px; height: 52px;
+      background: var(--creme);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+      border: 1.5px solid var(--creme-esc);
+    }
+
+    .why-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--preto-q);
+      margin-bottom: 10px;
+    }
+
+    .why-card p {
+      color: var(--cinza-q);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ── COMO FUNCIONA ── */
+    .sec-como {
+      background: var(--creme);
+      border-top: 2px solid var(--creme-esc);
+      border-bottom: 2px solid var(--creme-esc);
+      padding: 88px 0;
+    }
+
+    .sec-como-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .sec-como h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      color: var(--preto-q);
+      line-height: 1.15;
+      margin: 10px 0 28px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .step-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--mostarda);
+      color: var(--preto-mid);
+      font-weight: 900;
+      font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body h4 {
+      font-weight: 700;
+      font-size: 0.97rem;
+      color: var(--preto-q);
+      margin-bottom: 4px;
+    }
+
+    .step-body p {
+      font-size: 0.875rem;
+      color: var(--cinza-q);
+      line-height: 1.65;
+    }
+
+    /* Preview do app/cardápio à direita */
+    .cardapio-preview {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--sombra-g);
+      border: 1.5px solid var(--cinza-borda);
+    }
+
+    .cp-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1.5px solid var(--creme-esc);
+    }
+
+    .cp-header span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--preto-q);
+    }
+
+    .cp-header .cp-badge {
+      margin-left: auto;
+      background: rgba(200,149,42,0.12);
+      color: var(--mostarda);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cp-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cp-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      background: var(--creme);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--creme-esc);
+      transition: background var(--t);
+    }
+    .cp-item:hover { background: #ede3cc; }
+
+    .cp-item-emoji { font-size: 1.6rem; flex-shrink: 0; }
+
+    .cp-item-info { flex: 1; }
+    .cp-item-info strong { font-size: 0.9rem; color: var(--preto-q); font-weight: 700; display: block; }
+    .cp-item-info span { font-size: 0.77rem; color: var(--cinza-q); }
+
+    .cp-item-preco {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--vinho);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cp-lock-overlay {
+      position: relative;
+    }
+    .cp-lock-overlay .cp-item:last-child {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
+    .cp-lock-msg {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(253,250,244,0.98) 60%, transparent);
+      padding: 28px 14px 14px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--cinza-q);
+      font-weight: 600;
+    }
+    .cp-lock-msg button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: var(--mostarda);
+      color: var(--preto-mid);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 9px 20px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background var(--t), transform var(--t);
+    }
+    .cp-lock-msg button:hover { background: var(--mostarda-cl); transform: translateY(-1px); }
+
+    /* ── DEPOIMENTOS ── */
+    /* Reusa .sec-depo, .depo-grid etc. do home.css */
+
+    /* ── CTA FINAL ── */
+    .sec-cta-welcome {
+      background: var(--preto-mid);
+      padding: 88px 0;
+      position: relative;
+      overflow: hidden;
+      border-top: 2px solid var(--mostarda);
+    }
+    .sec-cta-welcome::before {
+      content: '';
+      position: absolute;
+      left: -5%; top: 0; bottom: 0;
+      width: 45%;
+      background: var(--vinho);
+      clip-path: polygon(0 0, 88% 0, 100% 100%, 0 100%);
+      opacity: 0.3;
+    }
+
+    .sec-cta-welcome-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sec-cta-welcome h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--off-white);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .sec-cta-welcome h2 em { color: var(--mostarda); font-style: italic; }
+
+    .sec-cta-welcome p {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      margin-bottom: 38px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 900px) {
+      .welcome-hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 60px var(--gutter);
+      }
+      .welcome-hero::before { display: none; }
+      .welcome-desc { margin: 0 auto 36px; }
+      .welcome-ctas { justify-content: center; }
+      .trust-row { justify-content: center; }
+      .welcome-visual { align-items: center; order: -1; }
+      .preview-card-main { max-width: 320px; }
+      .preview-mini { display: none; }
+
+      .why-grid { grid-template-columns: 1fr; }
+      .sec-como-inner { grid-template-columns: 1fr; gap: 44px; }
+      .depo-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .welcome-ctas { flex-direction: column; align-items: center; }
+      .btn-cadastrar, .btn-entrar-hero { width: 100%; justify-content: center; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      .cta-btns button, .cta-btns a button { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+
+    <!-- ══════════════════════════════════
+         HERO — BOAS-VINDAS
+    ══════════════════════════════════ -->
+    <section class="welcome-hero">
+      <div class="welcome-hero-inner">
+
+        <div class="welcome-content">
+          <div class="welcome-eyebrow">
+            <span class="dot"></span>
+            Lanchonete do SENAI · Aberto agora
+          </div>
+
+          <h1>
+            Peça antes,<br>
+            retire sem <span class="hl">fila.</span>
+          </h1>
+
+          <p class="welcome-desc">
+            A SnapBite é a lanchonete dos estudantes do SENAI. Crie sua conta, monte
+            seu pedido antes do intervalo e é só chegar no balcão.
+          </p>
+
+          <div class="welcome-ctas">
+            <button class="btn-cadastrar" onclick="abrirCadastro()">
+              🚀 Criar conta grátis
+            </button>
+            <button class="btn-entrar-hero" onclick="openModal('modal-login')">
+              Já tenho conta →
+            </button>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-item"><span>🔒</span><span>Login seguro com Google</span></div>
+            <div class="trust-item"><span>⚡</span><span>15 min de preparo</span></div>
+            <div class="trust-item"><span>🎁</span><span>Promoções exclusivas</span></div>
+          </div>
+        </div>
+
+        <!-- card visual à direita -->
+        <div class="welcome-visual">
+          <div class="preview-card-main">
+            <span class="card-tag">Mais pedido</span>
+            <span class="preview-emoji"><img src="img/img1.png" alt="SnapBurguer Clássico" style="max-height:120px;margin:0 auto;display:block;"></span>
+            <div class="preview-nome">SnapBurguer Clássico</div>
+            <div class="preview-desc">Blend artesanal, cheddar, alface, tomate e molho especial.</div>
+            <div class="preview-foot">
+              <div class="preview-preco">R$ 12,90</div>
+              <button class="preview-lock" onclick="abrirCadastro()">
+                🔐 Pedir agora
+              </button>
+            </div>
+          </div>
+
+          <!-- flutuante -->
+          <div class="preview-mini">
+            <span class="ic">🎉</span>
+            <div>
+              <strong>+1.200 estudantes</strong>
+              <span>já pediram no SnapBite</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         POR QUE SE CADASTRAR
+    ══════════════════════════════════ -->
+    <section class="sec-why">
+      <div class="sec-why-inner">
+        <div class="why-header">
+          <span class="eyebrow">Vantagens</span>
+          <h2 class="section-title" style="margin-top:8px">Por que criar uma conta?</h2>
+          <p class="section-lead" style="margin:0 auto">
+            Com sua conta você tem acesso a tudo — cardápio completo, pedidos rápidos e promoções exclusivas.
+          </p>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon">⚡</div>
+            <h3>Pedido em segundos</h3>
+            <p>Monte seu pedido antes mesmo de sair da sala. Na hora do intervalo é só retirar no balcão — sem fila, sem espera.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🔥</div>
+            <h3>Promoções exclusivas</h3>
+            <p>Membros têm acesso antecipado a combos em oferta, descontos relâmpago e o programa de fidelidade SnapBite.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🕐</div>
+            <h3>Histórico de pedidos</h3>
+            <p>Repita seus lanches favoritos com um clique. Seu histórico fica salvo e você nunca perde tempo decidindo.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🤖</div>
+            <h3>Assistente IA</h3>
+            <p>Nossa IA sugere combos personalizados, responde dúvidas de horário e te ajuda a escolher o lanche perfeito.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🔒</div>
+            <h3>Login rápido com Google</h3>
+            <p>Sem precisar criar senha. Conecte com sua conta Google em um clique — seguro e prático.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">💰</div>
+            <h3>Preços pra estudante</h3>
+            <p>Todos os produtos com preço justo. Combos que cabem no bolso de quem estuda. Feito por nós, pra nós.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:48px">
+          <button class="btn-cadastrar" onclick="abrirCadastro()" style="font-size:1rem;padding:15px 36px;">
+            🚀 Criar conta agora — é grátis
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         COMO FUNCIONA
+    ══════════════════════════════════ -->
+    <section class="sec-como">
+      <div class="sec-como-inner">
+
+        <div>
+          <span class="eyebrow">Simples assim</span>
+          <h2>Em 3 passos você já tá pedindo.</h2>
+
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h4>Crie sua conta com Google</h4>
+                <p>Um clique, zero senha pra lembrar. Seu perfil é criado automaticamente com nome e e-mail da conta Google.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h4>Escolha no cardápio</h4>
+                <p>Explore lanches, combos, bebidas e sobremesas. Adicione ao carrinho antes mesmo do intervalo começar.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h4>Retire sem fila no balcão</h4>
+                <p>No intervalo é só chegar e dar seu nome. Seu pedido já estará pronto esperando por você.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn-cadastrar" onclick="abrirCadastro()">Começar agora →</button>
+            <a href="cardapio.html">
+              <button class="btn-ghost">Ver o cardápio</button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Preview do cardápio -->
+        <div class="cardapio-preview">
+          <div class="cp-header">
+            <span>🍔</span>
+            <span>Cardápio do dia</span>
+            <div class="cp-badge">Ao vivo</div>
+          </div>
+          <div class="cp-lock-overlay">
+            <div class="cp-items">
+              <div class="cp-item">
+                <span class="cp-item-emoji">🍔</span>
+                <div class="cp-item-info">
+                  <strong>SnapBurguer Clássico</strong>
+                  <span>Blend artesanal · cheddar · molho especial</span>
+                </div>
+                <div class="cp-item-preco">R$ 12,90</div>
+              </div>
+              <div class="cp-item">
+                <span class="cp-item-emoji">🍟</span>
+                <div class="cp-item-info">
+                  <strong>Combo Estudante</strong>
+                  <span>Burguer + Batata + Refri · <span style="color:var(--terracota);font-weight:700">26% off</span></span>
+                </div>
+                <div class="cp-item-preco">R$ 18,50</div>
+              </div>
+              <div class="cp-item">
+                <span class="cp-item-emoji">🥤</span>
+                <div class="cp-item-info">
+                  <strong>Milk Shake Surpresa</strong>
+                  <span>Sabor do dia · sempre cremoso</span>
+                </div>
+                <div class="cp-item-preco">R$ 7,90</div>
+              </div>
+              <div class="cp-item" style="filter:blur(4px);pointer-events:none">
+                <span class="cp-item-emoji">🍩</span>
+                <div class="cp-item-info">
+                  <strong>Donuts 2x1</strong>
+                  <span>Peça 2 e leve 4 · sabores variados</span>
+                </div>
+                <div class="cp-item-preco">R$ 7,50</div>
+              </div>
+            </div>
+            <div class="cp-lock-msg">
+              🔐 Faça login para ver o cardápio completo e pedir
+              <br>
+              <button onclick="abrirCadastro()">🚀 Criar conta — é grátis</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         DEPOIMENTOS (reutiliza estilos do home)
+    ══════════════════════════════════ -->
+    <section class="sec-depo">
+      <div class="sec-depo-inner">
+        <div class="depo-header">
+          <div>
+            <span class="eyebrow">O que a galera fala</span>
+            <h2 class="section-title" style="margin-top:6px">+200 estudantes já pediram</h2>
+          </div>
+          <button class="btn-ghost" onclick="abrirCadastro()">Criar conta →</button>
+        </div>
+
+        <div class="depo-grid">
+          <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-texto">"Melhor lanche do SENAI. O burguer é gigante e o atendimento é super rápido. Não fico mais sem pedir!"</p>
+            <div class="depo-autor">
+              <div class="depo-av">🧑‍💻</div>
+              <div><div class="depo-nome">Gabriel S.</div><div class="depo-cargo">Estudante de TI</div></div>
+            </div>
+          </div>
+          <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-texto">"O combo estudante é incrível. Pago pouco e saio satisfeita. Recomendo pra todo mundo aqui do SENAI."</p>
+            <div class="depo-autor">
+              <div class="depo-av">👩‍🎨</div>
+              <div><div class="depo-nome">Ana L.</div><div class="depo-cargo">Estudante de Design</div></div>
+            </div>
+          </div>
+          <div class="depo-card">
+            <div class="depo-stars">★★★★★</div>
+            <p class="depo-texto">"O sistema online é o diferencial. Peço antes do intervalo e quando chego já tá na minha mão. Top!"</p>
+            <div class="depo-autor">
+              <div class="depo-av">👨‍🔧</div>
+              <div><div class="depo-nome">Pedro M.</div><div class="depo-cargo">Estudante de Elétrica</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════
+         CTA FINAL
+    ══════════════════════════════════ -->
+    <section class="sec-cta-welcome">
+      <div class="sec-cta-welcome-inner">
+        <span class="eyebrow">Pronto pra pedir?</span>
+        <h2>Seu lanche favorito<br>te <em>espera.</em></h2>
+        <p>Crie sua conta agora e faça seu primeiro pedido ainda hoje. Simples, rápido e gostoso do jeito que a galera gosta.</p>
+        <div class="cta-btns">
+          <button class="btn-cadastrar" onclick="abrirCadastro()" style="font-size:1rem;padding:15px 36px;">
+            🚀 Criar conta com Google
+          </button>
+          <a href="cardapio.html">
+            <button class="btn-ghost" style="padding:14px 28px;font-size:0.96rem;border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.65);">
+              Ver o cardápio primeiro
+            </button>
+          </a>
+        </div>
+        <p style="margin-top:28px;font-size:0.78rem;color:#3A3028">
+          Já tem conta? <button onclick="openModal('modal-login')" style="background:none;border:none;color:var(--mostarda);cursor:pointer;font-weight:700;font-size:0.78rem;padding:0;">Entrar aqui →</button>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+  <script type="module" src="backend/firebase-auth.js"></script>
+
+  <script>
+    // ─────────────────────────────────────────────
+    // REDIRECIONAMENTO: se já logado → vai pro home
+    // ─────────────────────────────────────────────
+    (function verificarLogin() {
+      const usuario = JSON.parse(localStorage.getItem('snapbite_user') || 'null');
+      if (usuario && usuario.cadastroCompleto) {
+        window.location.replace('index.html');
+      }
+    })();
+
+    // Firebase também pode disparar — escuta o evento customizado
+    window.addEventListener('snapbite:login', function () {
+      const usuario = JSON.parse(localStorage.getItem('snapbite_user') || 'null');
+      if (usuario && usuario.cadastroCompleto) {
+        window.location.replace('index.html');
+      }
+    });
+
+    // ─────────────────────────────────────────────
+    // Atalho: abre a aba "Criar conta" do modal-login
+    // ─────────────────────────────────────────────
+    function abrirCadastro() {
+      // Abre o modal de login
+      if (typeof window.openModal === 'function') {
+        window.openModal('modal-login');
+      }
+      // Aguarda o modal estar no DOM e ativa a aba de cadastro
+      setTimeout(() => {
+        const tabCadastro = document.querySelector('[data-tab="tab-cadastro"]');
+        const tabLogin    = document.querySelector('[data-tab="tab-login"]');
+        const contentCad  = document.getElementById('tab-cadastro');
+        const contentLog  = document.getElementById('tab-login');
+
+        if (tabCadastro && tabLogin && contentCad && contentLog) {
+          tabLogin.classList.remove('active');
+          tabCadastro.classList.add('active');
+          contentLog.classList.remove('active');
+          contentCad.classList.add('active');
+        }
+      }, 60);
+    }
+  </script>
+
+</body>
+</html>
