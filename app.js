@@ -43,22 +43,7 @@ function atualizarBadgeCarrinho() {
 // HORÁRIO DE COMPRA
 // ────────────────────────────────────────
 function estaNoHorarioDeCompra() {
-  const agora = new Date();
-  const dia = agora.getDay(); // 0 domingo, 6 sábado
-
-  if (dia === 0 || dia === 6) return false;
-
-  const totalMin = agora.getHours() * 60 + agora.getMinutes();
-
-  const inicioManha = 7 * 60;        // 07:00
-  const fimManha = 8 * 60 + 30;      // 08:30
-  const inicioTarde = 11 * 70;       // 11:00
-  const fimTarde = 12 * 60 + 50;     // 12:30
-
-  const dentroManha = totalMin >= inicioManha && totalMin <= fimManha;
-  const dentroTarde = totalMin >= inicioTarde && totalMin <= fimTarde;
-
-  return dentroManha || dentroTarde;
+  return true;
 }
 
 function getMensagemHorarioCompra() {
