@@ -1,6 +1,7 @@
 function formatBRL(valor) {
   return `R$ ${Number(valor).toFixed(2).replace('.', ',')}`;
 }
+require('dotenv').config();
 
 function escapeHtml(texto = '') {
   return String(texto)
